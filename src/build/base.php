@@ -4,7 +4,7 @@
  * @Author: else
  * @Date:   2018-01-11 14:04:08
  * @Last Modified by:   qinuoyun
- * @Last Modified time: 2018-06-21 14:15:53
+ * @Last Modified time: 2018-08-08 09:53:03
  */
 namespace this7\middleware\build;
 
@@ -20,7 +20,6 @@ class base {
 
     /**
      * 添加控制器执行的中间件
-     *
      * @param $name 中间件名称
      * @param $mod array 类型
      *  ['only'=>array('a','b')] 仅执行a,b控制器动作
@@ -31,12 +30,12 @@ class base {
             foreach ($mod as $type => $data) {
                 switch ($type) {
                 case 'only':
-                    if (in_array(ACTION, $data)) {
+                    if (in_array($_GET['action'], $data)) {
                         self::$run[] = C('middleware', $name);
                     }
                     break;
                 case 'except':
-                    if (!in_array(ACTION, $data)) {
+                    if (!in_array($_GET['action'], $data)) {
                         self::$run[] = C('middleware', $name);
                     }
                     break;
@@ -47,7 +46,12 @@ class base {
         }
     }
 
-    //执行控制器
+    /**
+     * 执行中间件
+     * @Author   Sean       Yan
+     * @DateTime 2018-08-08
+     * @return   [type]     [description]
+     */
     public function run() {
         foreach (self::$run as $class) {
             if (class_exists($class)) {

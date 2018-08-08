@@ -13,8 +13,8 @@
         "name": "全局中间件",
         "value": []
     },
-    "middleware":    {
-        "name": "路由中间件",
+    "auth":    {
+        "name": "授权中间件",
         "value": []
     },
     "versions":
